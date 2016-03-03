@@ -1,12 +1,8 @@
 
-
+package es.uam.eps.multij;
 import java.util.Scanner;
 
-import es.uam.eps.multij.AccionMover;
-import es.uam.eps.multij.Evento;
-import es.uam.eps.multij.Jugador;
-import es.uam.eps.multij.Movimiento;
-import es.uam.eps.multij.Tablero;
+
 
 public class JugadorHumano implements Jugador {
 	 private String nombre;

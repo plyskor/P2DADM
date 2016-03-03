@@ -1,10 +1,8 @@
-
+package es.uam.eps.multij;
 
 import java.util.ArrayList;
 
-import es.uam.eps.multij.ExcepcionJuego;
-import es.uam.eps.multij.Movimiento;
-import es.uam.eps.multij.Tablero;
+
 
 public class Tablero3Raya extends Tablero {
 	int[] casillas ;

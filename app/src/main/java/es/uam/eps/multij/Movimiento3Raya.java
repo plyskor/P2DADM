@@ -1,4 +1,4 @@
-import es.uam.eps.multij.Movimiento;
+package es.uam.eps.multij;
 
 public class Movimiento3Raya extends Movimiento {
 	int casilla;

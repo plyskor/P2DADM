@@ -15,10 +15,7 @@ public class JugadorAleatorio implements Jugador {
     private String nombre;
     private static int numAleatorios = 0;
     
-    /** Constructor por defecto */
-    public JugadorAleatorio() {
-        this("Aleatorio "+ (++numAleatorios));
-    }
+
     
     /** Creates a new instance of JugadorAleatorio */
     public JugadorAleatorio(String nombre) {
