@@ -17,5 +17,5 @@ public interface PartidaListener {
     /**
      * Llamado para notificar un evento en la partida
      */
-    void onCambioEnPartida(Evento evento);    
+    void onCambioEnPartida(Evento evento) ;
 }

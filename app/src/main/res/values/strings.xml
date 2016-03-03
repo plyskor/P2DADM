@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Connect3</string>
-    <string name="titleString">Welcome to Connect3 for Android!</string>
+    <string name="welcomeString">¡Bienvenido a Conecta3 para Android!</string>
+    <string name="playString">Le toca, seleccione la casilla</string>
+    <string name="winString">Enhorabuena, ha ganado</string>
+    <string name="loseString">Ha perdido, vuelva a intentarlo</string>
+    <string name="xString">Ha empatado, vuelva a intentarlo</string>
+    <string name="error2String">Debe elegir una casila vacía</string>
+    <string name="X">X</string>
+    <string name="O">O</string>
     <string name="button_newgameString">New Game</string>
+    <string name="nul"></string>
 </resources>

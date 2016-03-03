@@ -1,5 +1,9 @@
 
 package es.uam.eps.multij;
+import android.view.View;
+import android.widget.*;
+
+import com.example.jose.connect3.*;
 import java.util.Scanner;
 
 
@@ -12,8 +16,9 @@ public class JugadorHumano implements Jugador {
 	}
 
 	@Override
-	public void onCambioEnPartida(Evento evento) {
+	public void onCambioEnPartida(Evento evento)  {
 		Scanner in = new Scanner ( System.in );
+
 		switch (evento.getTipo()) {
         case Evento.EVENTO_CAMBIO:
             break;
@@ -37,33 +42,26 @@ public class JugadorHumano implements Jugador {
             break;
             
         case Evento.EVENTO_TURNO:
-            
-            Tablero t = evento.getPartida().getTablero();
-            
-            String p =new String("Casillas Vacías : ");
-            System.out.println("Seleccione en qué casilla [0 a 2(Fila1) 3 a 5(Fila2) 6 a 8(Fila3)] vacía desea colocar su ficha:");
-            
-            for(Movimiento m :t.movimientosValidos()){
-            	p+=((Movimiento3Raya) m).getCasilla();
-            	
-            }
-            
-            System.out.println(p);
-            opt=Character.getNumericValue(in.next().charAt(0));
-            //System.out.println("DEBUG: Elegido movimiento"+opt);
+
+
+			evento.getPartida().getActivity().setViewTitleText(R.string.playString);
+
+/*
             try {
             	evento.getPartida().realizaAccion(new AccionMover(
-            			this, new Movimiento3Raya(opt)));
+						this, new Movimiento3Raya(evento.getPartida().getActivity().getPulsado())));
             	in.close();
             }
             catch(Exception e) {
             	System.out.println(e.getMessage());
             	in.close();
             }
-            break;
+           */ break;
     }
 		
 	}
+
+
 
 	@Override
 	public String getNombre() {

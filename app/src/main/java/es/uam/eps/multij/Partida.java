@@ -5,7 +5,7 @@
  */
 
 package es.uam.eps.multij;
-
+import com.example.jose.connect3.MainActivity;
 import java.util.*;
 
 
@@ -23,10 +23,11 @@ import java.util.*;
  * @author mfreire
  */
 public class Partida {
-    
+
+
     /** todos los jugadores que estan jugando en este momento */
     private ArrayList<Jugador> jugadores;
-    
+    private MainActivity mainActivity;
     /** tablero sobre el que estan jugando */
     private Tablero tablero;
     
@@ -43,10 +44,12 @@ public class Partida {
      * Crea una nueva partida, notificando a los jugadores de su estado, y 
      * avisando al jugador actual de que le toca mover 
      */
-    public Partida(Tablero tablero, ArrayList<Jugador> jugadores) {
+    public Partida(Tablero tablero, ArrayList<Jugador> jugadores,MainActivity main) {
         observadores = new ArrayList<>();
         this.tablero = tablero;
         this.jugadores = jugadores;
+        this.mainActivity=main;
+
     }
     
     // Metodos internos de utilidad para notificar cosas a los jugadores y observadores
@@ -250,6 +253,9 @@ public class Partida {
             }
         }
     }
+public MainActivity getActivity(){
+    return this.mainActivity;
+}
 
 	public void comienzaPartida() {
 		

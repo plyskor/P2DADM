@@ -15,15 +15,18 @@ public class ExcepcionJuego extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+    private int error;
 	/**
      * Constructor con descripcion
      * @param descripcion un mensaje con lo que ha ocurrido
      */
-    public ExcepcionJuego(String descripcion) {
+    public ExcepcionJuego(String descripcion,int e) {
         super(descripcion);
+        error=e;
     }
-        
+    public int getError(){
+        return  error;
+    }
     /**
      * Constructor con descripcion y una causa anidada
      * @param descripcion un mensaje con lo que ha ocurrido

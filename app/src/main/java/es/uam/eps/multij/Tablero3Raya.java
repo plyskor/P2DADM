@@ -21,10 +21,10 @@ public class Tablero3Raya extends Tablero {
 	@Override
 	public void mueve(Movimiento m) throws ExcepcionJuego {
 		if(((Movimiento3Raya) m).getCasilla()<0||((Movimiento3Raya) m).getCasilla()>8){
-			throw new ExcepcionJuego("El movimiento debe hacerse dentro del tablero");
+			throw new ExcepcionJuego("El movimiento debe hacerse dentro del tablero",-1);
 		}
 		if(this.casillas[((Movimiento3Raya) m).getCasilla()]!=0){
-			throw new ExcepcionJuego("El movimiento debe hacerse en una casilla libre");
+			throw new ExcepcionJuego("El movimiento debe hacerse en una casilla libre",-2);
 		}
 		this.casillas[((Movimiento3Raya) m).getCasilla()]=this.getTurno()+1;
 		this.numJugadas++;
@@ -32,16 +32,19 @@ public class Tablero3Raya extends Tablero {
 		if(this.getTurno()==0)
 		System.out.println(this.toString());
 		if(this.comprobar_ganador(1)){
+			setGanador(1);
 			System.out.println("Ha ganado el Jugador 1, queda el tablero:");
 			System.out.println(this.toString());
 			this.estado=FINALIZADA;
 		}
 		if(this.comprobar_ganador(2)){
+			setGanador(2);
 			System.out.println("Ha ganado el Jugador 2, queda el tablero:");
 			System.out.println(this.toString());
 			this.estado=FINALIZADA;
 		}
 		if(this.numJugadas==9){
+			setGanador(0);
 			System.out.println("Ha habido un empate, queda el tablero:");
 			System.out.println(this.toString());
 			this.estado=TABLAS;
@@ -104,9 +107,9 @@ public class Tablero3Raya extends Tablero {
 
 	@Override
 	public void stringToTablero(String cadena) throws ExcepcionJuego {
-		if(cadena.length()!=9) throw new ExcepcionJuego("String no válido para un Tablero3Raya");
+		if(cadena.length()!=9) throw new ExcepcionJuego("String no válido para un Tablero3Raya",-3);
 		for(int i=0;i<9;i++){
-			if(Character.getNumericValue(cadena.charAt(i))<0||Character.getNumericValue(cadena.charAt(i))>2) throw new ExcepcionJuego("String no válido para un Tablero3Raya");
+			if(Character.getNumericValue(cadena.charAt(i))<0||Character.getNumericValue(cadena.charAt(i))>2) throw new ExcepcionJuego("String no válido para un Tablero3Raya",-3);
 			this.casillas[i]=Character.getNumericValue(cadena.charAt(i));
 		}
 
@@ -136,7 +139,8 @@ public class Tablero3Raya extends Tablero {
 		this.numJugadas = 0;	
 		for(int i=0;i<9;i++){
 			this.casillas[i]=0;
-		}
+		}this.turno=0;
+		this.estado=EN_CURSO;
 		return true;
 		
 	}

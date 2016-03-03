@@ -27,6 +27,8 @@ public abstract class Tablero {
     /** por defecto, solo para 2 jugadores (las subclases pueden cambiarlo) */
     protected int numJugadores = 2;
     
+    /** representa el jugador que gana */
+    protected int ganador;
     /** representa el jugador al que le toca mover (numeros del 0 a numJugadores) */
     protected int turno;
     
@@ -80,7 +82,7 @@ public abstract class Tablero {
 	/**
      * Cambia el turno
      */
-    protected void cambiaTurno() {
+    public void cambiaTurno() {
         turno = (turno + 1) % numJugadores;
         numJugadas++;
     }
@@ -137,4 +139,8 @@ public abstract class Tablero {
     	numJugadas = 0;
     	return true;
     }
+    public void setGanador(int i){
+        ganador=i;
+    }
+    public int getGanador(){return ganador;}
 }

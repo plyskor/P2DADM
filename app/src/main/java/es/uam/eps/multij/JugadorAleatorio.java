@@ -42,16 +42,17 @@ public class JugadorAleatorio implements Jugador {
                 break;
                 
             case Evento.EVENTO_TURNO:
+
                 // jugar al azar, que gran idea
-                Tablero t = evento.getPartida().getTablero();
-                int r = (int)(Math.random() * t.movimientosValidos().size());
-                try {
+               // Tablero t = evento.getPartida().getTablero();
+               // int r = (int)(Math.random() * t.movimientosValidos().size());
+               /* try {
                 	evento.getPartida().realizaAccion(new AccionMover(
                 			this, t.movimientosValidos().get(r)));
                 }
                 catch(Exception e) {
                 	
-                }
+                }*/
                 break;
         }
     }    
