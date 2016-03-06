@@ -3,7 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorNormal">#fff6df</color>
-    <color name="colorIA">#FFCACA</color>
-    <color name="colorPlayer">#E2F0B6</color>
+    <color name="colorNormal">#FFFFFF</color>
+
+    <color name="colorX">#fff6df</color>
+    <color name="colorLose">#FFCACA</color>
+    <color name="colorWin">#E2F0B6</color>
 </resources>

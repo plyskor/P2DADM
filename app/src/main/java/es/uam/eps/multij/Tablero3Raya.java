@@ -93,6 +93,7 @@ public class Tablero3Raya extends Tablero {
 				ret.add(new Movimiento3Raya(i));
 			}
 		}
+
 		return ret;
 	}
 
@@ -102,16 +103,28 @@ public class Tablero3Raya extends Tablero {
 		for(int i=0;i<9;i++){
 			ret+=this.casillas[i];
 		}
+		ret+=this.getTurno();
+		ret+=this.getEstado();
+		ret+=this.getNumJugadas();
 		return ret;
 	}
 
 	@Override
 	public void stringToTablero(String cadena) throws ExcepcionJuego {
+		int i;
 		if(cadena.length()!=9) throw new ExcepcionJuego("String no válido para un Tablero3Raya",-3);
-		for(int i=0;i<9;i++){
+		for(i=0;i<9;i++){
+
 			if(Character.getNumericValue(cadena.charAt(i))<0||Character.getNumericValue(cadena.charAt(i))>2) throw new ExcepcionJuego("String no válido para un Tablero3Raya",-3);
+
 			this.casillas[i]=Character.getNumericValue(cadena.charAt(i));
 		}
+		i++;
+		this.turno=Character.getNumericValue(cadena.charAt(i));
+		i++;
+		this.estado=Character.getNumericValue(cadena.charAt(i));
+		i++;
+		this.numJugadas=Character.getNumericValue(cadena.charAt(i));
 
 	}
 

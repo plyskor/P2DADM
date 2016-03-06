@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView title;
     private Partida partida;
     private boolean already=false;
+    private RelativeLayout mainFrame;
 
 
     @Override
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public void newGame(View view){
         if(already==false) {
             already = true;
+            mainFrame = (RelativeLayout) findViewById(R.id.mainFrame);
+
             jugadores.add(jugadorAleatorio);
             jugadores.add(jugadorHumano);
             //Pasamos la actividad al constructor, ya que la partida la contiene a partir de ahora
@@ -49,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 buttonAux.setVisibility(View.VISIBLE);
 
             }
+
             title = (TextView) findViewById(R.id.textView_title);
         }else{
             partida.getTablero().reset();
+            mainFrame.setBackgroundResource(R.color.colorNormal);
             for (int i = 0; i < 9; i++) {
                 buttonAux = (Button) findViewById(ids[i]);
                 buttonAux.setText(R.string.nul);
@@ -73,12 +80,15 @@ public class MainActivity extends AppCompatActivity {
             alerta=true;
             switch(partida.getTablero().getGanador()){
                 case 0:
+                    mainFrame.setBackgroundResource(R.color.colorX);
                     setViewTitleText(R.string.xString);
                     break;
                 case 1:
+                    mainFrame.setBackgroundResource(R.color.colorWin);
                     setViewTitleText(R.string.winString);
                     break;
                 case 2:
+                    mainFrame.setBackgroundResource(R.color.colorLose);
                     setViewTitleText(R.string.loseString);
                     break;
             }
@@ -92,66 +102,79 @@ public class MainActivity extends AppCompatActivity {
                 if (v.getId() == ids[i]) {
                     try {
                         partida.realizaAccion(new AccionMover(partida.getJugador(turno), new Movimiento3Raya(i)));
+                        buttonAux = (Button) findViewById(v.getId());
+                        buttonAux.setText(R.string.X);
                     } catch (ExcepcionJuego excepcionJuego) {
                         if (excepcionJuego.getError() == -2) ;
                         {
-                            setViewTitleText(R.string.error2String);
+                            Toast.makeText(this.getApplicationContext(),R.string.error2String,Toast.LENGTH_SHORT).show();
                             alerta = true;
                         }
                     }
                 }
             }
 
-            buttonAux = (Button) findViewById(v.getId());
-            buttonAux.setText(R.string.X);
+
         }}
             if(partida.getTablero().getEstado()==Tablero.FINALIZADA||partida.getTablero().getEstado()==Tablero.TABLAS){
                 alerta=true;
                 switch(partida.getTablero().getGanador()){
                     case 0:
+                        mainFrame.setBackgroundResource(R.color.colorX);
                         setViewTitleText(R.string.xString);
                         break;
                     case 1:
+                        mainFrame.setBackgroundResource(R.color.colorWin);
                         setViewTitleText(R.string.winString);
                         break;
                     case 2:
+                        mainFrame.setBackgroundResource(R.color.colorLose);
                         setViewTitleText(R.string.loseString);
                         break;
                 }
             }
             if(alerta==false) {
-               // partida.getTablero().cambiaTurno();
+
 
                 int r = (int) (Math.random() * partida.getTablero().movimientosValidos().size());
                 Movimiento3Raya m = (Movimiento3Raya) partida.getTablero().movimientosValidos().get(r);
-                buttonAux = (Button) findViewById(ids[m.getCasilla()]);
-                buttonAux.setText(R.string.O);
+
                 try {
                     partida.realizaAccion(new AccionMover(
                             partida.getJugador(turno), partida.getTablero().movimientosValidos().get(r)));
+                    buttonAux = (Button) findViewById(ids[m.getCasilla()]);
+                    buttonAux.setText(R.string.O);
                 } catch (Exception e) {
-
+                    //NONPOSSIBLE?
                 }
-               // partida.getTablero().cambiaTurno();
+
 
             }
         if(partida.getTablero().getEstado()==Tablero.FINALIZADA||partida.getTablero().getEstado()==Tablero.TABLAS){
 
             switch(partida.getTablero().getGanador()){
                 case 0:
+                    mainFrame.setBackgroundResource(R.color.colorX);
                     setViewTitleText(R.string.xString);
                     break;
                 case 1:
+                    mainFrame.setBackgroundResource(R.color.colorWin);
                     setViewTitleText(R.string.winString);
                     break;
                 case 2:
+                    mainFrame.setBackgroundResource(R.color.colorLose);
                     setViewTitleText(R.string.loseString);
                     break;
             }
         }
             }
 
-
+    @Override public void onSaveInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putString("estadoPartido",partida.getTablero().tableroToString());
+    }
+    @Override public void onRestoreInstanceState(Bundle savedInstanceState){
+        
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu; this adds items to the action bar if it is present.

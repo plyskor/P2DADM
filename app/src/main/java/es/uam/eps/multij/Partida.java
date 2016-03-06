@@ -253,6 +253,7 @@ public class Partida {
             }
         }
     }
+
 public MainActivity getActivity(){
     return this.mainActivity;
 }
