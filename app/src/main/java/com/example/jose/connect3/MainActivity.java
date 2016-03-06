@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
             jugadores.add(jugadorAleatorio);
             jugadores.add(jugadorHumano);
-            //Pasamos la actividad al constructor, ya que la partida la contiene a partir de ahora
             partida = new Partida(new Tablero3Raya(), jugadores, this);
             partida.addObservador(new JugadorHumano("Observador"));
 
@@ -170,10 +170,51 @@ public class MainActivity extends AppCompatActivity {
             }
 
     @Override public void onSaveInstanceState(Bundle savedInstanceState){
-        savedInstanceState.putString("estadoPartido",partida.getTablero().tableroToString());
+        if(partida!=null) {
+            String estado = partida.getTablero().tableroToString();
+            savedInstanceState.putString("estadoPartida", estado);
+            Log.i("tresenraya", "guardado estado " + estado);
+        }
     }
     @Override public void onRestoreInstanceState(Bundle savedInstanceState){
-        
+        jugadores.add(jugadorAleatorio);
+        jugadores.add(jugadorHumano);
+        int flag=0;
+        partida = new Partida(new Tablero3Raya(), jugadores, this);
+        partida.addObservador(new JugadorHumano("Observador"));
+        try {
+            String estado = savedInstanceState.getString("estadoPartida");
+            if(estado!=null){
+            partida.getTablero().stringToTablero(estado);
+                flag=1;
+            Log.i("tresenraya", "cargado estado " + estado);}
+        } catch (ExcepcionJuego excepcionJuego) {
+            excepcionJuego.printStackTrace();
+        }
+        if(flag==1) {
+            already = true;
+            mainFrame = (RelativeLayout) findViewById(R.id.mainFrame);
+            Tablero3Raya tablero = (Tablero3Raya) partida.getTablero();
+            for (int i = 0; i < 9; i++) {
+                buttonAux = (Button) findViewById(ids[i]);
+                buttonAux.setVisibility(View.VISIBLE);
+                switch (((Tablero3Raya) partida.getTablero()).getCasilla(i)) {
+                    case 0:
+                        break;
+                    case 1:
+                        buttonAux = (Button) findViewById(ids[i]);
+                        buttonAux.setText(R.string.X);
+                        break;
+                    case 2:
+                        buttonAux = (Button) findViewById(ids[i]);
+                        buttonAux.setText(R.string.O);
+                        break;
+                }
+            }
+
+            title = (TextView) findViewById(R.id.textView_title);
+
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
